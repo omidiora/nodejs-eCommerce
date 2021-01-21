@@ -1,60 +1,35 @@
-import React , {useState } from 'react';
-
-import logo from './logo.svg';
-import './App.css';
-import {BrowserRouter as Router , Switch , Route } from 'react-router-dom';
-import HomeSceen from './screens/HomeSceen';
-import ProductScreen from './screens/ProductScreen';
-import CartScreen from './screens/CartScreen';
-
+import "./App.css";
+import { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Components
-import Navbar from './components/Navbar';
-import Backdrop from './components/Backdrop';
-import SideDrawer from './components/SideDrawer';
+import Navbar from "./components/Navbar";
+import SideDrawer from "./components/SideDrawer";
+import Backdrop from "./components/Backdrop";
+
+// Screens
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
+import CartScreen from "./screens/CartScreen";
+import Checkout from "./components/Checkout";
 
 function App() {
-
-  const [sideToggle , setSideToggle] = useState(false);
+  const [sideToggle, setSideToggle] = useState(false);
 
   return (
-   
-  <Router>
-    {/* Navbar */}
-    <Navbar click={()=>setSideToggle(true)}/>
-
-
-    <SideDrawer show={sideToggle} click={()=>setSideToggle(false)}/>
-
-    <Backdrop show={sideToggle} click={()=>setSideToggle(false)}/>
-
-
-
-    {/* Backdrop */}
-
-    <main>
-      <Switch>
-        <Route exact path='/'  component={HomeSceen} />
-        <Route exact path='/product/:id' component={ProductScreen} />
-        <Route exact path='/cart' component={CartScreen} />
-      </Switch>
-    </main>
-
-
-    {/* HomeScreen */}
-
-
-    {/* ProductScreen */}
-
-
-
-    {/* CartSCreen */}
-   
-
-
+    <Router>
+      <Navbar click={() => setSideToggle(true)} />
+      <SideDrawer show={sideToggle} click={() => setSideToggle(false)} />
+      <Backdrop show={sideToggle} click={() => setSideToggle(false)} />
+      <main className="app">
+        <Switch>
+          <Route exact path="/" component={HomeScreen} />
+          <Route exact path="/product/:id" component={ProductScreen} />
+          <Route exact path="/cart" component={CartScreen} />
+          <Route exact path='/checkout' component={Checkout} />
+        </Switch>
+      </main>
     </Router>
-
-
   );
 }
 

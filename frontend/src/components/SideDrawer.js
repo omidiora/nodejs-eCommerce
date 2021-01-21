@@ -1,49 +1,39 @@
-import React from 'react';
-import './SideDrawer.css';
-import {Link} from 'react-router-dom';
+import "./SideDrawer.css";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
+const SideDrawer = ({ show, click }) => {
+  const sideDrawerClass = ["sidedrawer"];
 
-const SideDrawer = ({show , click}) => {
-    console.log(show);
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
-const sideDrawerClass =['sidedrawer'];
+  const getCartCount = () => {
+    return cartItems.reduce((qty, item) => Number(item.qty) + qty, 0);
+  };
 
-if(!show){
-    sideDrawerClass.push('show')
-}
-    return (
-        <div className={sideDrawerClass.join("")}>
+  if (show) {
+    sideDrawerClass.push("show");
+  }
 
-<ul className='sidedrawer__links' onClick={click}>
+  return (
+    <div className={sideDrawerClass.join(" ")}>
+      <ul className="sidedrawer__links" onClick={click}>
         <li>
-            <Link to='/cart'>
-            
-            <i className='fas fa-shopping-cart' />
-        <span>
-                        Cart
-            <span className='cartlogo__cartbadge'>0</span>
-        
+          <Link to="/cart">
+            <i className="fas fa-shopping-cart"></i>
+            <span>
+              Cart{" "}
+              <span className="sidedrawer__cartbadge">{getCartCount()}</span>
             </span>
-
-            </Link>
+          </Link>
         </li>
-
-
         <li>
-            <Link to='/shop'>
-                Shop
-            </Link>
+          <Link to="/">Shop</Link>
         </li>
-    </ul>
+      </ul>
+    </div>
+  );
+};
 
-
-              
-
-
-            
-        </div>
-    )
-}
-
-export default SideDrawer 
- 
+export default SideDrawer;
